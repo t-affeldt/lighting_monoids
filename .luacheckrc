@@ -33,7 +33,7 @@ stds.minetest.read_globals = {
 
 stds.monoids = {}
 stds.monoids.globals = {
-    "lighting_monoids",
+    "lighting_monoid",
     "weather"
 }
 stds.monoids.read_globals = {

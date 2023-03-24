@@ -4,9 +4,8 @@ if weather ~= nil and weather.on_update ~= nil then
         if overrides == nil then
             return
         end
-        if overrides.shadows and overrides.shadows.intensity then
-            local intensity = overrides.shadows.intensity
-            lighting_monoids.shadows:add_change(player, intensity, "weather:cloud_shadows")
+        if overrides.shadows then
+            lighting_monoid:add_change(player, { shadows = overrides.shadows }, "weather:cloud_shadows")
         end
         overrides.lighting = nil
         return overrides

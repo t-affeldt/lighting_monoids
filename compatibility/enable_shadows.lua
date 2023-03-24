@@ -38,7 +38,8 @@ minetest.override_chatcommand("shadow_intensity", {
 
 		intensity = new_intensity
 		for _,player in pairs(minetest.get_connected_players()) do
-            lighting_monoids.shadows:add_change(player, new_intensity, "enable_shadows:base_value")
+			local lighting = { shadows = { intensity = new_intensity } }
+            lighting_monoid:add_change(player, lighting, "enable_shadows:base_value")
 		end
 	end
 })
