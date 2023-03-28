@@ -1,0 +1,9 @@
+{
+    "type": "MOD",
+    "title": "Lighting Monoid",
+    "dev_state": "ACTIVELY_DEVELOPED",
+    "tags": ["library", "player_effects"],
+    "repo": "https://github.com/t-affeldt/lighting_monoids",
+    "issue_tracker": "https://github.com/t-affeldt/lighting_monoids/issues",
+    "license": "MIT"
+}
