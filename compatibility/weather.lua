@@ -7,6 +7,11 @@ if weather == nil or weather.get == nil then
     return
 end
 
+-- leave it to climate_api to disable
+if minetest.get_modpath("climate_api") then
+    return
+end
+
 -- prevent mod from triggering lighting updates itself
 local old_get = weather.get
 weather.get = function(player)
