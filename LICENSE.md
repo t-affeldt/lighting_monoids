@@ -1,7 +1,7 @@
 The MIT License (MIT)
 =====================
 
-Copyright © `2023` `Till Affeldt`
+Copyright © `2023 - 2024` `Till Affeldt`
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation

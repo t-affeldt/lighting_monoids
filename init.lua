@@ -1,11 +1,9 @@
-local SET_BASE_SHADOW = minetest.settings:get_bool("lighting_monoids.set_base_shadow", true)
 local BASE_SHADOW_INTENSITY = tonumber(minetest.settings:get("lighting_monoids.base_shadow_intensity") or 0.33)
-
 local MODPATH = minetest.get_modpath(minetest.get_current_modname())
 
 local monoid_definition = {
     shadows = {
-        intensity = "multiply_minmax",
+        intensity = "multiply",
     },
     saturation = "multiply",
     exposure = {
@@ -38,10 +36,6 @@ function methods.multiply(a, b)
     return a * b
 end
 
-function methods.multiply_minmax(a, b)
-    return math.max(math.min(a * b, 1), 0)
-end
-
 -- combine tables using specified methods
 local function combine(definition, tabA, tabB)
     -- at least one table has undefined value
@@ -69,7 +63,7 @@ lighting_monoid = player_monoids.make_monoid({
     end,
     fold = function(values)
         local total = {}
-        for _, val in ipairs(values) do
+        for _, val in pairs(values) do
             total = combine(monoid_definition, total, val)
         end
         return total
@@ -78,20 +72,23 @@ lighting_monoid = player_monoids.make_monoid({
         if player.set_lighting ~= nil then
             -- incorporate default offsets
             value = combine(monoid_definition, lighting_defaults, value)
+            -- restrict shadow intensity to valid range
+            if value ~= nil and value.shadows ~= nil and value.shadows.intensity ~= nil then
+                value.shadows.intensity = math.max(math.min(value.shadows.intensity, 1), 0)
+            end
             player:set_lighting(value)
         end
     end
 })
 
-if minetest.get_modpath("weather") then
+if minetest.get_modpath("weather") and minetest.settings:get_bool("enable_weather") ~= false then
     dofile(MODPATH ..  DIR_DELIM .. "compatibility" .. DIR_DELIM .. "weather.lua")
 end
 
 if minetest.get_modpath("enable_shadows") then
     dofile(MODPATH .. DIR_DELIM .. "compatibility" .. DIR_DELIM .. "enable_shadows.lua")
-
--- set base shadow
-elseif SET_BASE_SHADOW then
+else
+    -- set base shadow
     minetest.register_on_joinplayer(function(player)
         local lighting = { shadows = { intensity = BASE_SHADOW_INTENSITY } }
         lighting_monoid:add_change(player, lighting, "lighting_monoid:base_shadow")

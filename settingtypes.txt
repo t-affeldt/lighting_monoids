@@ -1,4 +1,2 @@
-# If enabled, lighting_monoids will assign a base value to the shadow intensity.
-lighting_monoids.set_base_shadow (Set base shadow) bool true
 # The base value that will be used when no other effect is active.
 lighting_monoids.base_shadow_intensity (Base shadow intensity) float 0.33 0 1

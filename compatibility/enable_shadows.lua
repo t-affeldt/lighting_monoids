@@ -11,7 +11,8 @@ local default_intensity = tonumber(minetest.settings:get("enable_shadows_default
 local intensity = tonumber(storage:get("intensity") or default_intensity)
 
 minetest.register_on_joinplayer(function(player)
-    lighting_monoids.shadows:add_change(player, intensity, "enable_shadows:base_value")
+	local lighting = { shadows = { intensity = intensity } }
+	lighting_monoid:add_change(player, lighting, "enable_shadows:base_value")
 end)
 
 minetest.override_chatcommand("shadow_intensity", {
