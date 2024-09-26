@@ -15,15 +15,17 @@ Each property of the lighting definition will be aggregated with the respective 
 
 Properties will be aggregated in different ways. Here is the full list:
 
-- `saturation` will be __multiplied__
-- `shadows`
-  - `intensity` will be __multiplied__
 - `exposure`
   - `luminance_min` will be __added__
   - `luminance_max` will be __added__
   - `speed_dark_bright` will be __multiplied__
   - `speed_bright_dark` will be __multiplied__
   - `center_weight_power` will be __multiplied__
+- `saturation` will be __multiplied__
+- `shadows`
+  - `intensity` will be __multiplied__
+- `tint` values will be __maxed__
+- `volumetric_light` will be __maxed__
 
 ### Example
 
