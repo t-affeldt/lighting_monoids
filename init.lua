@@ -5,6 +5,11 @@ local monoid_definition = {
     shadows = {
         intensity = "multiply",
     },
+    tint = {
+        r = "max_255",
+        g = "max_255",
+        b = "max_255"
+    },
     saturation = "multiply",
     exposure = {
         luminance_min = "add",
@@ -13,16 +18,31 @@ local monoid_definition = {
         speed_dark_bright = "multiply",
         speed_bright_dark = "multiply",
         center_weight_power = "multiply"
+    },
+    volumetric_light = {
+        strength = "max_1"
     }
 }
 
--- default values that don't reflect neutral operations
+-- neutral values
 local lighting_defaults = {
+    shadows = {
+        intensity = 1,
+    },
+    tint = {
+        r = 0,
+        g = 0,
+        b = 0
+    },
+    saturation = 1,
     exposure = {
         luminance_min = -3,
         luminance_max = -3,
         speed_dark_bright = 1000,
         speed_bright_dark = 1000,
+    },
+    volumetric_light = {
+        strength = 0
     }
 }
 
@@ -34,6 +54,14 @@ end
 
 function methods.multiply(a, b)
     return a * b
+end
+
+function methods.max_1(a, b)
+    return math.min(math.max(math.max(a, b), 0), 1)
+end
+
+function methods.max_255(a, b)
+    return math.min(math.max(math.max(a, b), 0), 255)
 end
 
 -- combine tables using specified methods
