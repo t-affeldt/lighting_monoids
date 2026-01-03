@@ -21,6 +21,11 @@ local monoid_definition = {
     },
     volumetric_light = {
         strength = "max_1"
+    },
+    bloom = {
+        intensity = "add",
+        radius = "add",
+        strength_factor = "add"
     }
 }
 
@@ -43,6 +48,11 @@ local lighting_defaults = {
     },
     volumetric_light = {
         strength = 0
+    },
+    bloom = {
+        intensity = 0,
+        radius = 1,
+        strength_factor = 1
     }
 }
 
